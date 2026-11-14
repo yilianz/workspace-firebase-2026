@@ -2,12 +2,32 @@
   <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <title>Product Page</title>
-    <!-- Jquery library   ---->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.js"
-      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous"
-    ></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        max-width: 1200px;
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 2rem clamp(1rem, 4vw, 3rem);
+      }
+
+      #popular-section {
+        margin: 1rem auto;
+        padding: clamp(1rem, 3vw, 2rem);
+      }
+
+      #popular-section h2 {
+        margin: 0 0 1.5rem;
+        text-align: center;
+      }
+
+    </style>
+    
   </head>
 
   <body>
@@ -17,7 +37,7 @@
             <h2>Popular Favorites</h2>
             <!-- Carousel Container -->
             <div class="carousel-container">
-                <button class="carousel-btn prev" onclick="scrollCarousel('popular-carousel', -1)">&#8249;</button>
+                <button class="carousel-btn prev" >&#8249;</button>
                 <div class="carousel" id="popular-carousel">
                     <!-- Each menu item in the carousel -->
                     <div class="menu-item">
@@ -25,37 +45,61 @@
                         <h3>Latte</h3>
                         <p>Smooth espresso combined with steamed milk.(<span>5</span>)</p>
                         <p>$4.00</p>
-                        
-                        <button>Add to Order</button>
+                        <label for="latte-rating">Rating:</label>
+                        <input type="range" id="latte-rating" name="latte-rating" min="1" max="5" value="5" list="rating-ticks">
+                        <datalist id="rating-ticks">
+                          <option value="1"></option>   
+                          <option value="2"></option>
+                          <option value="3"></option>
+                          <option value="4"></option>
+                          <option value="5"></option>
+                        </datalist>
+                        <p> Current rating: 5 stars</p>
+                        <p> 
+                        <img src="img/star_rating_01_raised_5_stars.png" width="100" height="20" alt="Current rating: 5 stars" id="current-rating">
+                       </p>
+                        <button>Add to Order and submit review</button>
                     </div>
                     <div class="menu-item">
                         <img src="img/matchaLatte.png" alt="Matcha Latte" class="menu-image">
                         <h3>Matcha Latte</h3>
                         <p>Earthy matcha blended with steamed milk.(<span>9</span>)</p>
                         <p>$4.50</p>
-                        <button>Add to Order</button>
+                        <label for="matcha-rating">Rating:</label>
+                        <input type="range" id="matcha-rating" name="matcha-rating" min="1" max="5" value="5" list="rating-ticks">
+                        <p> Current rating: 5 stars</p>
+                        <p>
+                        <img src="img/star_rating_01_raised_5_stars.png" width="100" height="20" alt="Current rating: 5 stars" id="current-rating">
+                        </p>
+                        <button>Add to Order and submit review</button>
                     </div>
                     <div class="menu-item">
                         <img src="img/cookies.png" alt="Cookies" class="menu-image">
                         <h3>Chocolate Chip Cookie</h3>
                         <p>Golden cookie with milk chocolate chips.(<span>10</span>)</p>
                         <p>$2.75</p>
-                        <button>Add to Order</button>
+                        <label for="cookie-rating">Rating:</label>
+                        <input type="range" id="cookie-rating" name="cookie-rating" min="1" max="5" value="5" list="rating-ticks">
+                        <p> Current rating: 5 stars</p>
+                        <p>
+                        <img src="img/star_rating_01_raised_5_stars.png" width="100" height="20" alt="Current rating: 5 stars" id="current-rating">
+                        </p>
+                        <button>Add to Order and submit review</button>
                     </div>
                     <div class="menu-item">
                         <img src="img/bagel.png" alt="bagel" class="menu-image">
                         <h3>Bagel Sandwich</h3>
-                        <p>Crispy everything bagel with cream cheese and veggies.(<span>12</span>)</p>
+                        <p>Crispy everything bagel with veggies.(<span>12</span>)</p>
                         <p>$5.00</p>
-                        <button>Add to Order</button>
+                        <label for="bagel-rating">Rating:</label>
+                        <input type="range" id="bagel-rating" name="bagel-rating" min="1" max="5" value="5" list="rating-ticks">
+                        <p> Current rating: 5 stars</p> 
+                        <p>
+                        <img src="img/star_rating_01_raised_5_stars.png" width="100" height="20" alt="Current rating: 5 stars" id="current-rating">
+                        </p>
+                        <button>Add to Order and submit review</button>
                     </div>
-                    <div class="menu-item">
-                        <img src="img/chocMuffin.png" alt="muffin" class="menu-image">
-                        <h3>Double Chocolate Muffin</h3>
-                        <p>Warm melty chocolate muffin with dark chocolate center.(<span>10</span>)</p>
-                        <p>$3.00</p>
-                        <button>Add to Order</button>
-                    </div>
+
                 </div>
                 
                 <button class="carousel-btn next" >&#8250;</button>
@@ -70,14 +114,13 @@
       import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js';
 
       /* Change the configuration */
-
       const firebaseConfig = {
-        apiKey: 'AIzaSyDob-9txBBuYpCCsYbDdab7OiJHrb3L5d0',
-        authDomain: 'database2025-1a422.firebaseapp.com',
-        projectId: 'database2025-1a422',
-        storageBucket: 'database2025-1a422.firebasestorage.app',
-        messagingSenderId: '162500439428',
-        appId: '1:162500439428:web:a87724d9a8842f249a81d1',
+        apiKey: "AIzaSyCrm-yZTtIr0H7cEkc1Lb5dN5UKIGg4vpU",
+        authDomain: "test2026-e771f.firebaseapp.com",
+        projectId: "test2026-e771f",
+        storageBucket: "test2026-e771f.firebasestorage.app",
+        messagingSenderId: "503003148107",
+        appId: "1:503003148107:web:ae9ede7100e9c3aa7082ce",
       };
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);

@@ -46,16 +46,15 @@
     import { getAuth } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js';
     import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js';
 
-    /* Change the configuration */
-    const firebaseConfig = {
-      apiKey: "AIzaSyDob-9txBBuYpCCsYbDdab7OiJHrb3L5d0",
-      authDomain: "database2025-1a422.firebaseapp.com",
-      projectId: "database2025-1a422",
-      storageBucket: "database2025-1a422.firebasestorage.app",
-      messagingSenderId: "162500439428",
-      appId: "1:162500439428:web:a87724d9a8842f249a81d1"
-    };
-
+      /* Change the configuration */
+      const firebaseConfig = {
+        apiKey: "AIzaSyCrm-yZTtIr0H7cEkc1Lb5dN5UKIGg4vpU",
+        authDomain: "test2026-e771f.firebaseapp.com",
+        projectId: "test2026-e771f",
+        storageBucket: "test2026-e771f.firebasestorage.app",
+        messagingSenderId: "503003148107",
+        appId: "1:503003148107:web:ae9ede7100e9c3aa7082ce",
+      };
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -69,7 +68,7 @@
     /**
      * Function to read form data and save to database
      */
-    async  function getFormDataSubmit(event) {
+    async function getFormDataSubmit(event) {
       // Prevent the default button action (though not strictly necessary for an input type="button")
       event.preventDefault();
  
@@ -85,9 +84,12 @@
       }
 
       // 3. Save the booking to database
-      const docRef = await addDoc(hotelbooking, dataObject);
-      console.log("✅ Booking saved successfully! Document ID:", docRef.id);
-
+      try {
+        const docRef = await addDoc(hotelbooking, dataObject);
+        console.log("✅ Booking saved successfully! Document ID:", docRef.id);
+      } catch (error) {
+        console.error("❌ Error saving booking:", error);
+      }
       // 4. Output the result (e.g., to the console)
       console.log('--- Form Data Object ---');
       console.log(dataObject);
